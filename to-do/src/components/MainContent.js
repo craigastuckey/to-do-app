@@ -6,20 +6,35 @@ class MainContent extends React.Component {
     constructor() {
         super()
         this.state = {
-            todoItems: todosData.map(item => <TodoItem key={item.id} item={item}/>)
+            todos: todosData
         }
         this.handleChange = this.handleChange.bind(this)
     }
 
     handleChange(id) {
-        console.log("Changed", id)
+        this.setState(prevState => {
+            const newTodos = prevState.todos.map(todo => {
+                if(todo.id === id) {
+                    return {
+                        ...todo,
+                        completed: !todo.completed
+                    }
+                }
+                return todo
+            })
+            return {
+                todos: newTodos
+            }
+        })
     }
 
     render() {
+        const todoItems = this.state.todos.map(item => <TodoItem key={item.id} item={item} handleChange={this.handleChange}/>)
+
         return(
             <div className='main content'>
                 <div className='todo-list'>
-                    {this.state.todoItems}
+                    {todoItems}
                 </div>
             </div>
         )

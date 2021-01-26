@@ -7,7 +7,7 @@ const todosData = [
     {
         id: 2,
         text: "Clean gecko tank",
-        complete: false
+        completed: false
     },
     {
         id: 4,
